@@ -70,6 +70,28 @@ class BST
             }
             return temp;
         }
+
+        // FIND 
+        Node *find(int x)
+        {
+            Node *record = root;
+            while(record != NULL)
+            {
+                if (x == record->data)
+                {
+                    return record;
+                }
+                else if (x < record->data)
+                {
+                    record = record.left;
+                }
+                else
+                {
+                    record = record->right;
+                }
+            }
+            return NULL;
+        }
 };
 int main()
 {
