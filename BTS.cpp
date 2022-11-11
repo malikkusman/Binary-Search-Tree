@@ -1,5 +1,5 @@
 #include <iostream>
-using namepace std;
+using namespace std;
 
 class Node
 {
@@ -20,7 +20,7 @@ public:
 class BST
 {   
     private:
-    Node *root;
+        Node *root;
     public:
         BST()
         {
@@ -89,7 +89,7 @@ class BST
                 }
                 else if (x < record->data)
                 {
-                    record = record.left;
+                    record = record->left;
                 }
                 else
                 {
@@ -174,8 +174,212 @@ class BST
             }
             return temp;
         }
+
+        //Inorder Traversal
+        void inordertraversal(Node *temp)
+        {
+            if(temp == NULL)
+            {
+                return;
+            }
+            inordertraversal(temp->left);
+            cout << temp->data << " ";
+            inordertraversal(temp->right);
+        }
+
+        // Preorder Traversal
+        void preordertravesal(Node *T)
+        {
+            if (T != NULL)
+            {
+                cout << T->data << " ";
+                preordertravesal(T->left);
+                preordertravesal(T->right);
+            }
+        }
+
+        // Postorder Traversal
+        void postordertraversal(Node *T)
+        {
+            if (T != NULL)
+            {
+                postordertraversal(T->left);
+                postordertraversal(T->right);
+                cout << T->data << " ";
+            }
+        }
+
+        //NUMBER OF NODES
+        int NumberOfNodes(Node *T)
+        {
+            if (T == NULL)
+            {
+                return 0;
+            }
+            else 
+            {
+               return NumberOfNodes(T->left) + NumberOfNodes(T->right) + 1; 
+            }
+        }
+
+        //HEIGHT OF TREE
+        int Height(Node *T)
+        {
+            if (T == NULL)
+            {
+                return 0;
+            }
+            else
+
+            {
+                int left = Height(T->left);
+                int right = Height(T->right);
+                if (left > right)
+                {
+                    return left + 1;
+                }
+                else
+                {
+                    return right + 1;
+                }
+            }
+        }
+
+        // ISBST
+        bool isBST(Node *T)
+        {
+            if (T == NULL)
+            {
+                return true;
+            }
+            else
+            {
+                if (T->left != NULL && T->left->data > T->data)
+                {
+                    return false;
+                }
+                if (T->right != NULL && T->right->data < T->data)
+                {
+                    return false;
+                }
+                if (!isBST(T->left) || !isBST(T->right))
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        // LEAF NOdes
+        void LeafNodes(Node *T)
+        {
+            if (T == NULL)
+            {
+                return;
+            }
+            else
+            {
+                if (T->left == NULL && T->right == NULL)
+                {
+                    cout << T->data << " ";
+                }
+                LeafNodes(T->left);
+                LeafNodes(T->right);
+            }
+        }
+
+        //SPARSE TREE
+        bool isSparseTree(Node *T) 
+        {
+            if (T == NULL)
+            {
+                return true;
+            }
+            else
+            {
+                if (T->left == NULL && T->right == NULL)
+                {
+                    return true;
+                }
+                if (T->left != NULL && T->right != NULL)
+                {
+                    return false;
+                }
+                return isSparseTree(T->left) && isSparseTree(T->right);
+            }
+        } 
+
+        // VISUALIZE TREE
+        void visualizeTree(Node *T)
+        {
+            if (T == NULL)
+            {
+                return;
+            }
+            else
+            {
+                if (T->left != NULL)
+                {
+                    cout << T->data << " -> " << T->left->data << endl;
+                }
+                if (T->right != NULL)
+                {
+                    cout << T->data << " -> " << T->right->data << endl;
+                }
+                visualizeTree(T->left);
+                visualizeTree(T->right);
+            }
+        }
+
+        // Print BST
+        void printBST(Node *T)
+        {
+            if (T == NULL)
+            {
+                return;
+            }
+            else
+            {
+                cout << T->data << " ";
+                printBST(T->left);
+                printBST(T->right);
+            }
+        }    
 };
+
+
 int main()
 {
-
+    BST b;
+    b.Insert(10);
+    b.Insert(5);
+    b.Insert(15);
+    b.Insert(3);
+    b.Insert(7);
+    b.Insert(12);
+    b.find(5);
+    b.find(12); 
+    b.find(3);
+    b.deleteNode(10);
+    b.inordertraversal(b.getRoot());
+    cout << endl;   
+    b.preordertravesal(b.getRoot());
+    cout << endl;
+    b.postordertraversal(b.getRoot());
+    cout << endl;
+    b.NumberOfNodes(b.getRoot());
+    cout << endl;
+    b.Height(b.getRoot());
+    cout << endl;
+    b.isBST(b.getRoot());
+    cout << endl;
+    b.LeafNodes(b.getRoot());
+    cout << endl;
+    b.isSparseTree(b.getRoot());
+    cout << endl;
+    b.visualizeTree(b.getRoot());
+    cout << endl;
+    b.printBST(b.getRoot());
+    cout << endl;
+    return 0;
 }
